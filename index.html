@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Have You Ever? Stories</title>
+<style>
+:root{--bg:#fbf6ec;--card:#f3e9d6;--ink:#1d2433;--mute:#5b6472;--line:#d9cdb4;--navy:#14213d;--coral:#c9411c;--btn:#0f766e;--btnink:#fff;--ok:#0f766e;--bad:#b3261e;--accent:#e4572e;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14213d;--card:#1f2f52;--ink:#fbf6ec;--mute:#b9c2d6;--line:#34456c;--coral:#ff9b7a;--btn:#5ad1c0;--btnink:#0b2a26;--ok:#5ad1c0;--bad:#ff8a80}}
+:root[data-theme="dark"]{--bg:#14213d;--card:#1f2f52;--ink:#fbf6ec;--mute:#b9c2d6;--line:#34456c;--coral:#ff9b7a;--btn:#5ad1c0;--btnink:#0b2a26;--ok:#5ad1c0;--bad:#ff8a80}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Helvetica Neue",Arial,sans-serif;font-size:17px;line-height:1.4;min-height:100vh}
+.wrap{max-width:560px;margin:0 auto;padding:16px 16px 96px}
+h1{font-family:Georgia,serif;font-size:1.55rem;margin:4px 0 2px}
+.sub{color:var(--mute);margin:0 0 14px;font-size:.95rem}
+.pills{display:flex;gap:6px;margin-bottom:16px}
+.pill{flex:1;text-align:center;font-size:.78rem;font-weight:700;padding:7px 2px;border-radius:999px;background:var(--card);color:var(--mute);border:2px solid transparent}
+.pill.on{background:var(--navy);color:#fbf6ec}.pill.done{border-color:var(--ok);color:var(--ok)}
+.card{background:var(--card);border-radius:20px;padding:18px;margin-bottom:14px}
+.tag{display:inline-block;font-size:.78rem;font-weight:700;color:var(--coral);margin-bottom:6px}
+h2{font-family:Georgia,serif;font-size:1.3rem;margin:0 0 8px;line-height:1.2}
+.q{font-family:Georgia,serif;font-size:1.35rem;line-height:1.3;margin:6px 0 14px}
+.opt{display:block;width:100%;text-align:left;font:inherit;font-weight:700;padding:14px;margin-bottom:8px;border-radius:14px;border:2px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer;min-height:52px}
+.opt.right{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 20%,var(--bg))}
+.opt.wrong{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 16%,var(--bg))}
+.btn{font:inherit;font-weight:700;padding:14px 18px;border-radius:14px;border:0;background:var(--btn);color:var(--btnink);cursor:pointer;min-height:50px}
+.btn.alt{background:transparent;color:var(--ink);border:2px solid var(--line)}
+.btn.full{width:100%}
+.why{margin:10px 0 12px;color:var(--mute);font-size:.95rem}
+.frame{font-family:Georgia,serif;font-style:italic;font-size:1.1rem;padding:12px 14px;border-left:5px solid var(--accent);background:var(--bg);border-radius:8px;margin:8px 0}
+.thumbs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}
+.thumbs div{aspect-ratio:1;border-radius:12px;overflow:hidden;background:var(--bg)}
+.thumbs img{width:100%;height:100%;object-fit:cover;display:block}
+textarea,input[type=text]{width:100%;font:inherit;padding:12px;border-radius:12px;border:2px solid var(--line);background:var(--bg);color:var(--ink);margin-top:6px}
+textarea{min-height:84px;resize:vertical}
+.file{display:block;text-align:center;cursor:pointer}
+.file input{display:none}
+.timer{font-family:Georgia,serif;font-size:2.4rem;font-weight:700;text-align:center;margin:6px 0}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.row .btn{flex:1}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.chip{font:inherit;font-size:.9rem;padding:8px 12px;border-radius:999px;border:2px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
+.count{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.count b{font-family:Georgia,serif;font-size:2rem}
+audio{width:100%;margin-top:10px}
+.nav{position:fixed;left:0;right:0;bottom:0;background:var(--bg);border-top:1px solid var(--line);padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px))}
+.nav div{max-width:560px;margin:0 auto;display:flex;gap:10px}
+.nav .btn{flex:1}
+.score{font-family:Georgia,serif;font-size:3rem;font-weight:700;text-align:center;color:var(--coral)}
+.msg{color:var(--bad);font-size:.9rem;margin-top:8px}
+.small{font-size:.85rem;color:var(--mute)}
+.hero{display:flex;gap:14px;align-items:center;background:linear-gradient(135deg,#14213d,#0f766e);color:#fbf6ec;border-radius:22px;padding:18px;margin-bottom:14px}
+.hero h1{margin:0;color:#fbf6ec}.hero .sub{color:#d6e4e2;margin:2px 0 0}.cam{font-size:2.4rem}
+.pill{line-height:1.2}
+.bigcard{text-align:center;background:var(--bg);border-radius:18px;padding:20px;margin:10px 0}.bigcard .em{font-size:4rem;line-height:1.1}.bgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}.bsq{font:inherit;border:2px solid var(--line);background:var(--bg);color:var(--ink);border-radius:14px;min-height:92px;padding:6px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}.bsq span{font-size:1.6rem}.bsq small{font-size:.72rem;line-height:1.15}.bsq b{font-size:.8rem;color:var(--ok)}.bsq.on{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 18%,var(--bg))}.bsq.sel{outline:3px solid var(--accent)}.lie{margin-top:8px;width:100%}.pcard img{width:100%;height:150px;object-fit:cover;border-radius:12px;display:block;margin-bottom:10px}.tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}.tn{font-weight:700;font-size:1.15rem}.card{box-shadow:0 2px 0 var(--line)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.hint{max-width:560px;margin:0 auto 8px;font-size:.85rem;color:var(--mute);text-align:center}.hint:empty{display:none}
+.bar{height:8px;background:var(--bg);border-radius:6px;overflow:hidden;margin:6px 0 10px}.bar i{display:block;height:100%;background:var(--btn);transition:width .4s}
+.car{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;margin-bottom:8px;padding-bottom:4px}
+.ph{flex:0 0 84%;scroll-snap-align:center;border-radius:18px;overflow:hidden;background:var(--card)}
+.ph img{width:100%;height:230px;object-fit:cover;display:block}
+.cap{padding:10px 12px;font-size:.95rem}
+.idea{font-family:Georgia,serif;font-size:1.25rem;background:var(--bg);border-left:5px solid var(--accent);border-radius:8px;padding:12px;margin:8px 0}
+.brk{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}
+.rrow{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 0}
+.r4{display:flex;gap:6px}
+.rb{font:inherit;font-weight:700;width:44px;height:44px;border-radius:12px;border:2px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
+.rb.on{background:var(--btn);color:var(--btnink);border-color:var(--btn)}
+.cf{position:fixed;top:-20px;width:10px;height:14px;z-index:40;pointer-events:none;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}
+@keyframes pop{from{transform:scale(.96);opacity:.5}to{transform:none;opacity:1}}
+.opt.right,.opt.wrong{animation:pop .25s}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<div class="nav"><p class="hint" id="hint"></p><div id="nav"></div></div>
+<script>
+var STEPS=["Quiz","Cards","Story","Wrap-up"],ICON=["📝","🎲","🎤","🏁"];
+var Q=[
+["She ___ never been to Paris.",["has","have","did"],0,"With she, he or it, use has + been."],
+["___ you ever eaten sushi?",["Have","Did","Are"],0,"Have you ever + past participle asks about life experience."],
+["I have ___ a horse once.",["rode","ridden","riding"],1,"The past participle of ride is ridden."],
+["We ___ just finished our homework.",["have","has","did"],0,"We + have + past participle. Just goes between them."],
+["He has lived here ___ 2019.",["for","since","ago"],1,"Since points to the starting time. For points to a length of time."],
+["They have known each other ___ ten years.",["for","since","ago"],0,"For goes with a length of time: ten years."],
+["I ___ my phone. I can't find it!",["lost","am losing","have lost"],2,"A past action with a result now: have lost."],
+["Have you ever ___ to Japan?",["went","been","go"],1,"Been is the past participle of be, used for visits."]];
+var IDEAS=["a place you have visited","food you have tried","something you have never done","a person you have met","a new thing you have learned this year"];
+var S={step:0,qi:0,score:0,picked:-1,photos:[],sent:["","",""],count:0,audio:null,rec:null,comment:"",ask:"",fin:false,name:"",rub:{f:-1,a:-1,i:-1},idea:"",shown:0,override:false,taps:0,started:false,view:"",sync:"",lie:-1,rev:false,ans:[],topic:"",card:null},T=null,DB=null,UID=null,OWNER=false,ROWS=[],GR={},SYNC=null,UNS=[];
+var $=function(id){return document.getElementById(id)};
+var esc=function(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})};
+function fmt(t){return Math.floor(t/60)+":"+("0"+t%60).slice(-2)}
+function go(n){if(n>S.step&&gate())return;clearInterval(T);S.step=n;S.fin=false;S.shown=0;render();window.scrollTo(0,0)}
+function timer(sec){clearInterval(T);var t=sec,el=$("tm");el.textContent=fmt(t);T=setInterval(function(){t--;el.textContent=fmt(t);if(t<=0){clearInterval(T);try{navigator.vibrate(300)}catch(e){}}},1000)}
+
+function render(){
+  $("app").style.maxWidth="";
+  if(S.view==="teach"){teachView();return}
+  if(!S.started){welcome();return}
+  var h='<div class="hero"><div class="cam" onclick="tap5()">📸</div><div><h1>Have You Ever? Stories</h1><p class="sub">Present perfect: tell the story of your life so far.</p></div></div><p class="small" id="sync" style="margin:-6px 0 10px"></p><div class="pills">';
+  STEPS.forEach(function(n,i){h+='<div class="pill'+(i===S.step?' on':i<S.step?' done':'')+'">'+ICON[i]+'<br>'+n+'</div>'});
+  h+='</div>'+[quiz,gallery,story,reply][S.step]();
+  $("app").innerHTML=h;
+  var b='';
+  if(S.step>0)b+='<button class="btn alt" onclick="go('+(S.step-1)+')">Back</button>';
+  if(S.step<3)b+='<button class="btn" id="next" onclick="go('+(S.step+1)+')">Next: '+STEPS[S.step+1]+'</button>';
+  $("nav").innerHTML=b;navRefresh();
+  document.querySelectorAll("[data-s]").forEach(function(t){t.oninput=function(){S.sent[+t.dataset.s]=t.value;navRefresh()}});
+  if($("cm"))$("cm").oninput=function(){S.comment=this.value;navRefresh()};
+  if($("ak"))$("ak").oninput=function(){S.ask=this.value;navRefresh()};
+  if($("nm"))$("nm").oninput=function(){S.name=this.value};
+  var f=$("files");if(f)f.onchange=function(){S.photos=Array.prototype.slice.call(f.files,0,3).map(function(x){return URL.createObjectURL(x)});render()};
+  if(S.fin&&!S.shown){S.shown=1;confetti()}
+  badge();sync();
+}
+
+function quiz(){
+  if(S.qi>=Q.length){var m=S.score>=7?"Excellent!":S.score>=5?"Good work!":"Keep practising!";
+    return '<div class="card"><span class="tag">Stage 1: controlled</span><h2>Quiz finished</h2><div class="score">'+S.score+' / '+Q.length+'</div><p style="text-align:center">'+m+' Now tap Next to play the bingo.</p><button class="btn alt full" onclick="S.qi=0;S.score=0;S.picked=-1;render()">Play again</button></div>';}
+  var q=Q[S.qi],h='<div class="card"><span class="tag">📝 Stage 1: controlled. Question '+(S.qi+1)+' of '+Q.length+'</span><div class="bar"><i style="width:'+(S.qi/Q.length*100)+'%"></i></div><div class="q">'+esc(q[0])+'</div>';
+  q[1].forEach(function(o,i){var c='';if(S.picked>=0){if(i===q[2])c=' right';else if(i===S.picked)c=' wrong'}
+    h+='<button class="opt'+c+'" '+(S.picked>=0?'disabled':'onclick="pick('+i+')"')+'>'+esc(o)+'</button>'});
+  if(S.picked>=0)h+='<p class="why">'+(S.picked===q[2]?'Correct! ':'Not quite. ')+esc(q[3])+'</p><button class="btn full" onclick="S.qi++;S.picked=-1;render()">'+(S.qi===Q.length-1?'See my score':'Next question')+'</button>';
+  return h+'</div>';
+}
+function pick(i){S.picked=i;if(i===Q[S.qi][2]){S.score++;try{navigator.vibrate(60)}catch(e){}}render()}
+
+var POOL=[["🍣","eaten sushi"],["🐎","ridden a horse"],["🌍","been to another country"],["⭐","met a famous person"],["🦴","broken a bone"],["🎸","learned an instrument"],["❄️","seen snow"],["🌙","stayed up all night"],["📱","lost a phone"],["🏆","won a prize"],["🍳","cooked for friends"],["✈️","been on a plane"]];
+function ansC(v){S.ans.push(v);render()}
+function gallery(){
+  if(!S.card)S.card=POOL.slice().sort(function(){return Math.random()-.5}).slice(0,9);
+  var n=S.ans.length,h;
+  if(n<9){var c=S.card[n];
+    return '<div class="card"><span class="tag">🎲 Stage 2: semi-controlled</span><h2>Have you ever...?</h2><div class="bar"><i style="width:'+(n/9*100)+'%"></i></div><p class="small">Card '+(n+1)+' of 9. Answer for yourself.</p><div class="bigcard"><div class="em">'+c[0]+'</div><div class="q">Have you ever '+c[1]+'?</div></div><div class="row"><button class="btn alt" onclick="ansC(0)">No, I haven\'t</button><button class="btn" onclick="ansC(1)">Yes, I have</button></div>'+(n?'<button class="btn alt full" style="margin-top:10px" onclick="S.ans.pop();render()">Undo</button>':'')+'</div>';}
+  var y=S.ans.filter(Boolean).length;
+  h='<div class="card"><span class="tag">🎲 Stage 2: semi-controlled</span><h2>Your experience card</h2><p>You have done <b>'+y+'</b> of 9 things.</p><div class="chips">';
+  S.card.forEach(function(c,i){h+='<span class="chip" style="'+(S.ans[i]?'border-color:var(--ok);font-weight:700':'opacity:.6')+'">'+c[0]+' '+(S.ans[i]?'✓ ':'')+c[1]+'</span>'});
+  h+='</div><button class="btn alt full" style="margin-top:10px" onclick="S.ans=[];S.topic=\'\';S.sent=[\'\',\'\',\'\'];render()">Play again</button></div>';
+  h+='<div class="card"><h2>Write 3 sentences about yourself</h2><p>Use the frames and the things on your card.</p><div class="frame">I have ___ (once / twice / many times).</div><div class="frame">I have never ___, but I would like to.</div><div class="frame">I have ___, but I haven\'t ___ yet.</div>';
+  for(var i=0;i<3;i++)h+='<textarea data-s="'+i+'" placeholder="Sentence '+(i+1)+'...">'+esc(S.sent[i])+'</textarea>';
+  return h+'</div>';
+}
+function story(){
+  var h=photoStrip()+'<div class="card"><span class="tag">🎤 Stage 3: free</span><h2>Your one-minute story</h2><p>Tell a one-minute story about your topic. Use the present perfect at least 3 times. Choose your own words.</p>'+(S.idea?'<div class="idea">'+esc(S.idea)+'</div>':'')+'<button class="btn alt full" onclick="surprise()">🎲 Give me an idea</button><p class="small" style="margin-top:12px">Word bank</p><div class="chips">';
+  ["have / has + been","seen","tried","met","learned","never","ever","already","yet"].forEach(function(x){h+='<span class="chip">'+x+'</span>'});
+  h+='</div></div><div class="card"><div class="count"><div><b>'+S.count+'</b> <span class="small">times I used it</span></div><div class="row" style="flex:none"><button class="btn alt" onclick="if(S.count>0)S.count--;render()">-1</button><button class="btn" onclick="S.count++;render()">+1</button></div></div>';
+  h+='<p class="small">Tap +1 each time you say a present perfect sentence.</p></div>';
+  h+='<div class="card"><h2>Record your story</h2><div class="timer" id="tm">1:00</div><button class="btn full" id="recbtn" onclick="rec()">'+(S.audio?'Record again':'Start recording')+'</button><div class="msg" id="recmsg"></div>';
+  if(S.audio)h+='<audio controls src="'+S.audio+'"></audio>';
+  return h+'<p class="small">If recording does not start, use your phone voice recorder instead.</p></div>';
+}
+function gate(){
+  var s=S.step;if(S.override)return "";
+  if(s===0)return S.qi>=Q.length?"":"Answer all "+Q.length+" questions to unlock Gallery ("+S.qi+"/"+Q.length+" done)";
+  if(s===1){var n=S.sent.filter(function(x){return x.trim()}).length;if(S.ans.length<9)return "Answer all 9 cards ("+S.ans.length+"/9)";return n>=3?"":"Write 3 sentences about yourself ("+n+"/3)"}
+  if(s===2)return !S.topic?"Choose a topic for your story":S.count>=3?"":"Tap +1 each time you use the present perfect ("+S.count+"/3)";
+  if(s===3&&!S.fin)return (S.comment.trim()&&S.ask.trim())?"":"Write your reflection and a question to finish";
+  return "";
+}
+function navRefresh(){
+  var g=gate(),b=S.step===3?$("fin"):$("next");if(b)b.disabled=!!g;
+  $("hint").textContent=S.override?"Teacher mode: all stages unlocked":g?"🔒 "+g:(S.step<3?"✅ Ready for the next stage":(S.fin?"":"✅ Ready to finish"));
+}
+function tap5(){S.taps++;if(S.taps>=5){S.override=true;navRefresh()}}
+function photoStrip(){
+  if(S.ans.length<9)return '<div class="card"><p>Answer the experience cards first to get your story topics.</p><button class="btn full" onclick="go(1)">Go to the cards</button></div>';
+  var any=S.ans.some(Boolean),h='<div class="card"><h2>Choose your story topic</h2><p>'+(any?'Pick one thing you have really done. Tap it.':'Pick any topic. Tap it.')+'</p><div class="chips">';
+  S.card.forEach(function(c,i){if(any&&!S.ans[i])return;h+='<button class="chip" style="'+(S.topic===c[1]?'border-color:var(--ok);font-weight:700':'')+'" onclick="S.topic=\''+c[1]+'\';render()">'+c[0]+' '+c[1]+'</button>'});
+  h+='</div>';
+  if(S.topic)h+='<div class="idea">Have you ever '+S.topic+'? Tell us: Where? When? Who with? How did you feel?</div>';
+  return h+'</div>';
+}
+function surprise(){S.idea="Tell a story about "+IDEAS[Math.floor(Math.random()*IDEAS.length)]+".";render()}
+function confetti(){var c=["#e4572e","#0f766e","#f2c14e","#5ad1c0","#ff8fc2"];for(var i=0;i<50;i++){var d=document.createElement("div");d.className="cf";d.style.left=Math.random()*100+"vw";d.style.background=c[i%5];d.style.animationDuration=(2+Math.random()*2)+"s";d.style.animationDelay=Math.random()*.6+"s";document.body.appendChild(d);setTimeout(function(x){x.remove()},5000,d)}}
+function pts(){
+  var n=S.sent.filter(function(x){return /\b(have|has|haven't|hasn't)\b/i.test(x)}).length;
+  var p={quiz:Math.floor(S.score/2),sent:Math.min(n,2),story:S.count>=3?2:S.count>=1?1:0,reply:(S.comment.trim()?1:0)+(S.ask.trim()?1:0)};
+  p.auto=p.quiz+p.sent+p.story+p.reply;return p;
+}
+function tsum(){return Math.max(0,S.rub.f)+Math.max(0,S.rub.a)+Math.max(0,S.rub.i)}
+function reportText(){
+  var p=pts(),t=tsum(),tot=p.auto+t;
+  return "Have You Ever? Stories\nName: "+(S.name||"-")+"\nQuiz: "+S.score+"/"+Q.length+" ("+p.quiz+"/4)\nSentences with have/has: "+p.sent+"/2\nStory: used it "+S.count+" times ("+p.story+"/2)\nComment and question: "+p.reply+"/2\nAuto score: "+p.auto+"/10\nTeacher check: fluency "+Math.max(0,S.rub.f)+", accuracy "+Math.max(0,S.rub.a)+", interaction "+Math.max(0,S.rub.i)+" ("+t+"/9)\nTotal: "+tot+"/19 ("+Math.round(tot/19*100)+"%)\n\nMy sentences:\n"+S.sent.filter(Boolean).join("\n")+"\nMy comment: "+S.comment+"\nMy question: "+S.ask;
+}
+function rub(k,l){var h='<div class="rrow"><span>'+l+'</span><div class="r4">';for(var v=0;v<4;v++)h+='<button class="rb'+(S.rub[k]===v?' on':'')+'" onclick="S.rub[\''+k+'\']='+v+';render()">'+v+'</button>';return h+'</div></div>'}
+function reportOld(){
+  var p=pts(),t=tsum(),tot=p.auto+t,pc=Math.round(tot/19*100);
+  return '<div class="card"><span class="tag">🏆 All done</span><h2>Results</h2><p><b>'+esc(S.name)+'</b></p><div class="score">'+tot+' / 19</div><p class="small" style="text-align:center">'+pc+'%. '+(pc>=85?'Excellent!':pc>=65?'Good job!':pc>=45?'Getting there!':'Keep practising!')+'</p>'+
+  '<h2 style="margin-top:14px">Auto score: '+p.auto+' / 10</h2><div class="brk"><span>Quiz</span><b>'+p.quiz+' / 4</b></div><div class="brk"><span>Sentences with have / has</span><b>'+p.sent+' / 2</b></div><div class="brk"><span>Story: times used</span><b>'+p.story+' / 2</b></div><div class="brk"><span>Reflection and question</span><b>'+p.reply+' / 2</b></div>'+
+  '<h2 style="margin-top:14px">Teacher check: '+t+' / 9</h2><p class="small">Teacher taps 0 to 3. 3 = very good, 0 = not shown.</p>'+rub("f","Fluency")+rub("a","Present perfect accuracy")+rub("i","Interaction with partner")+
+  '</div><button class="btn full" onclick="copySum()">Copy results to send</button><div class="msg" id="cpmsg" style="color:var(--ok)"></div><button class="btn alt full" style="margin-top:10px" onclick="if(confirm(\'Start again? Your answers will be cleared.\'))location.reload()">Start again</button>';
+}
+async function rec(){
+  try{
+    if(S.rec&&S.rec.state==="recording"){S.rec.stop();return}
+    var st=await navigator.mediaDevices.getUserMedia({audio:true}),ch=[],mr=new MediaRecorder(st);S.rec=mr;
+    mr.ondataavailable=function(e){ch.push(e.data)};
+    mr.onstop=function(){st.getTracks().forEach(function(t){t.stop()});S.audio=URL.createObjectURL(new Blob(ch,{type:mr.mimeType||"audio/webm"}));clearInterval(T);render()};
+    mr.start();$("recbtn").textContent="Stop recording";timer(60);
+    setTimeout(function(){if(mr.state==="recording")mr.stop()},60000);
+  }catch(e){$("recmsg").textContent="Recording is not available here. Use your phone voice recorder and speak for one minute."}
+}
+
+function reply(){
+  if(S.fin)return report();
+  return '<div class="card"><span class="tag">🏁 Stage 4: wrap-up</span><h2>Look back</h2><p>Listen to your own recording if you made one. Then answer two prompts.</p><div class="frame">Today I have learned ___. / I have found ___ difficult.</div><textarea id="cm" placeholder="What have you learned today?">'+esc(S.comment)+'</textarea><p style="margin-top:10px">Now write one question you could ask a friend:</p><div class="frame">Have you ever ___?</div><textarea id="ak" placeholder="My question...">'+esc(S.ask)+'</textarea></div><button class="btn full" id="fin" onclick="if(!gate()){S.fin=true;render()}">Finish and see my summary</button>';
+}
+function summary(){
+  var txt="Have You Ever? Stories\nQuiz: "+S.score+"/"+Q.length+"\nPresent perfect used in my story: "+S.count+" times\n"+S.sent.filter(Boolean).map(function(s,i){return (i+1)+". "+s}).join("\n")+"\nMy comment: "+S.comment+"\nMy question: "+S.ask;
+  window.SUM=txt;
+  return '<div class="card"><span class="tag">All done</span><h2>My summary</h2><div class="score">'+S.score+' / '+Q.length+'</div><p style="text-align:center" class="small">quiz score</p><p>Story: <b>'+S.count+'</b> present perfect sentences</p><p class="small" style="white-space:pre-wrap">'+esc(txt.split("\n").slice(3).join("\n"))+'</p><button class="btn full" onclick="copySum()">Copy to send to my teacher</button><div class="msg" id="cpmsg" style="color:var(--ok)"></div></div>';
+}
+function copySum(){
+  var ok=function(){$("cpmsg").textContent="Copied!"};
+  try{navigator.clipboard.writeText(reportText()).then(ok,function(){$("cpmsg").textContent="Copy did not work. Take a screenshot instead."})}catch(e){$("cpmsg").textContent="Copy did not work. Take a screenshot instead."}
+}
+render();
+
+(async function(){try{
+  if(!window.claude||!claude.use)return;
+  var u=await claude.use("user");DB=await claude.use("db");
+  if(u){UID=await u.id();OWNER=await u.isOwner()}
+  if(!UID)DB=null;
+  if(!S.started&&S.view==="")render();
+}catch(e){DB=null}})();
+function hero(){return '<div class="hero"><div class="cam" onclick="tap5()">📸</div><div><h1>Have You Ever? Stories</h1><p class="sub">Present perfect: tell the story of your life so far.</p></div></div>'}
+function welcome(){
+  $("app").innerHTML=hero()+'<div class="card"><span class="tag">👋 Welcome</span><h2>What is your name?</h2><p>Write your first name and surname. Your teacher will see your progress.</p><input type="text" id="nm" placeholder="Your name" value="'+esc(S.name)+'" autocomplete="name"><button class="btn full" id="go0" style="margin-top:12px"'+(S.name.trim().length<2?' disabled':'')+' onclick="startAct()">Start the activity</button>'+(OWNER?'<button class="btn alt full" style="margin-top:10px" onclick="S.view=\'teach\';render()">👩‍🏫 Open teacher dashboard</button>':'')+'</div>';
+  $("nm").oninput=function(){S.name=this.value;$("go0").disabled=S.name.trim().length<2};
+  $("nav").innerHTML="";$("hint").textContent="";
+}
+function startAct(){if(S.name.trim().length<2)return;S.started=true;render();sync(true)}
+function snap(){var p=pts();return{name:S.name.trim(),step:S.step,fin:S.fin,qi:S.qi,score:S.score,bingo:S.ans.length,yes:S.ans.filter(Boolean).length,topic:S.topic,sent:S.sent,count:S.count,rec:!!S.audio,comment:S.comment,ask:S.ask,auto:p.auto,t:Date.now()}}
+function sync(now){
+  if(!DB||!UID||!S.started)return;clearTimeout(SYNC);
+  SYNC=setTimeout(function(){DB.doc("progress/"+UID).set(snap()).then(function(){S.sync="ok";badge()},function(){S.sync="fail";badge()})},now?0:1200);
+}
+function badge(){var b=$("sync");if(!b)return;b.textContent=S.sync==="ok"?"✅ Your teacher can see your progress":S.sync==="fail"?"⚠️ Your progress was not sent to the teacher":""}
+function report(){
+  if(!DB||S.sync==="fail")return reportOld();
+  var p=pts();
+  return '<div class="card"><span class="tag">🏆 All done</span><h2>Well done, '+esc(S.name.trim().split(" ")[0])+'!</h2><div class="score">'+p.auto+' / 10</div><div class="brk"><span>Quiz</span><b>'+p.quiz+' / 4</b></div><div class="brk"><span>Sentences with have / has</span><b>'+p.sent+' / 2</b></div><div class="brk"><span>Story: times used</span><b>'+p.story+' / 2</b></div><div class="brk"><span>Reflection and question</span><b>'+p.reply+' / 2</b></div><p class="small">Your teacher will add the speaking mark.</p></div><button class="btn full" onclick="copySum()">Copy my results</button><div class="msg" id="cpmsg" style="color:var(--ok)"></div>';
+}
+function teachView(){
+  $("app").style.maxWidth="900px";
+  $("nav").innerHTML='<button class="btn alt" onclick="leaveTeach()">Back</button><button class="btn" onclick="csv()">Download CSV</button>';$("hint").textContent="";
+  if(!DB){$("app").innerHTML=hero()+'<div class="card"><h2>Dashboard unavailable</h2><p>Open this page while signed in to Claude as the owner.</p></div>';return}
+  $("app").innerHTML=hero()+'<h2>Teacher dashboard</h2><div id="tb"></div>';
+  $("tb").onclick=function(e){var b=e.target.closest(".rb");if(b)grade(b.dataset.id,b.dataset.k,+b.dataset.v)};
+  if(!UNS.length){
+    UNS.push(DB.collection("progress").onSnapshot(function(q){ROWS=q.docs.map(function(d){var x=d.data();x._id=d.id;return x});drawTeach()},function(){if($("tb"))$("tb").textContent="Could not load progress."}));
+    UNS.push(DB.collection("grades").onSnapshot(function(q){GR={};q.docs.forEach(function(d){GR[d.id]=d.data()});drawTeach()},function(){}));
+  }
+  drawTeach();
+}
+function leaveTeach(){UNS.forEach(function(u){u()});UNS=[];S.view="";render()}
+function ago(t){var m=Math.round((Date.now()-t)/60000);return m<1?"just now":m<60?m+" min ago":Math.round(m/60)+" h ago"}
+function mg(id){var g=Object.assign({f:-1,a:-1,i:-1},GR[id]||{});return g}
+function trub(id,g,k,l){var h='<div class="rrow"><span>'+l+'</span><div class="r4">';for(var v=0;v<4;v++)h+='<button class="rb'+(g[k]===v?' on':'')+'" data-id="'+esc(id)+'" data-k="'+k+'" data-v="'+v+'">'+v+'</button>';return h+'</div></div>'}
+function drawTeach(){
+  var tb=$("tb");if(!tb)return;
+  var R=ROWS.slice().sort(function(a,b){return String(a.name).localeCompare(String(b.name))});
+  var fin=R.filter(function(r){return r.fin}).length,avg=R.length?(R.reduce(function(a,r){return a+(r.auto||0)},0)/R.length).toFixed(1):"0";
+  var h='<div class="card"><b>'+R.length+'</b> students joined, <b>'+fin+'</b> finished, average auto score <b>'+avg+' / 10</b></div><div class="tgrid">';
+  R.forEach(function(r){
+    var sn=(r.sent||[]).filter(function(x){return String(x).trim()}).length,g=mg(r._id),tt=Math.max(0,g.f)+Math.max(0,g.a)+Math.max(0,g.i);
+    h+='<div class="card"><div class="tn">'+esc(r.name)+'</div><div class="small">'+(r.fin?"Finished":STEPS[r.step||0])+', '+ago(r.t)+'</div>'+
+    '<div class="brk"><span>📝 Quiz</span><b>'+(r.qi||0)+'/8 answered, '+(r.score||0)+' correct</b></div>'+
+    '<div class="brk"><span>🎲 Cards</span><b>'+(r.bingo||0)+'/9 answered, '+(r.yes||0)+' yes, '+sn+'/3 sentences</b></div>'+
+    '<div class="brk"><span>🎤 Story</span><b>'+(r.topic?esc(r.topic)+', ':'')+(r.count||0)+' uses, '+(r.rec?'recorded':'no recording')+'</b></div>'+
+    '<div class="brk"><span>🏁 Wrap-up</span><b>'+(r.comment?'reflection ✓':'no reflection')+', '+(r.ask?'question ✓':'no question')+'</b></div>'+
+    '<div class="brk"><span>Auto score</span><b>'+(r.auto||0)+' / 10</b></div>'+
+    '<details><summary class="small" style="margin:8px 0;cursor:pointer">See their writing</summary><p class="small" style="white-space:pre-wrap">'+esc((r.sent||[]).filter(Boolean).join("\n")||"-")+'\nComment: '+esc(r.comment||"-")+'\nQuestion: '+esc(r.ask||"-")+'</p></details>'+
+    trub(r._id,g,"f","Fluency")+trub(r._id,g,"a","Accuracy")+trub(r._id,g,"i","Interaction")+
+    '<div class="brk"><b>Total</b><b>'+((r.auto||0)+tt)+' / 19</b></div></div>';
+  });
+  tb.innerHTML=h+(R.length?'':'<p class="small">Nobody has started yet. Students appear here when they enter their name.</p>')+'</div>';
+}
+function grade(id,k,v){var g=mg(id);g[k]=v;GR[id]=g;drawTeach();DB.doc("grades/"+id).set(g).catch(function(){})}
+async function csv(){
+  var c=function(x){x=String(x==null?"":x);if(/^[=+\-@]/.test(x))x="'"+x;return '"'+x.replace(/"/g,'""')+'"'};
+  var rows=[["Name","Stage","Quiz answered","Quiz correct","Cards answered","Sentences","Story uses","Recorded","Comment","Question","Auto /10","Fluency","Accuracy","Interaction","Total /19"]];
+  ROWS.forEach(function(r){var g=mg(r._id),t=Math.max(0,g.f)+Math.max(0,g.a)+Math.max(0,g.i);rows.push([r.name,r.fin?"Finished":STEPS[r.step||0],r.qi,r.score,r.bingo,(r.sent||[]).filter(Boolean).join(" | "),r.count,r.rec?"yes":"no",r.comment,r.ask,r.auto,g.f,g.a,g.i,(r.auto||0)+t])});
+  try{var d=await claude.use("downloads");if(d)await d.save({filename:"phone-gallery-results.csv",data:rows.map(function(r){return r.map(c).join(",")}).join("\n")})}catch(e){}
+}
+</script>
+</body>
+</html>
